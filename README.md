@@ -12,7 +12,7 @@ This is a project for extracting attribute of clothes detected in image.
 3. Install requirements
 ## How to test the model
 1.   Download yolo-v3 model from [here](https://drive.google.com/file/d/1yCz6pc6qHJD2Zcz8ldDmJ3NzE8wjaiT6/view?usp=sharing) and put in 'root directory'.  
-2.   Downoad Clothing-MA model from [here](https://drive.google.com/file/d/1k3lvA96ZstbV4a_QtYTuohY79xg_nJYe/view?usp=sharing) and put in 'root directory'.
+2.   Downoad model from [here](https://drive.google.com/file/d/1k3lvA96ZstbV4a_QtYTuohY79xg_nJYe/view?usp=sharing) and put in 'root directory'.
 
 3.   Run `file_demo.py` to run each image file demostration
 
