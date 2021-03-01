@@ -73,7 +73,7 @@ def main(args):
     try:
         list_dir = os.listdir(images)
      #   list_dir.sort(key=lambda x: int(x[:-4]))
-        imlist = [osp.join(osp.realpath('.'), images, img) for img in list_dir if os.path.splitext(img)[1] =='.jpg'  or os.path.splitext(img)[1] =='.JPG' or os.path.splitext(img)[1] =='.png']
+        imlist = [osp.join(osp.realpath('.'), images, img) for img in list_dir if os.path.splitext(img)[1].lower() =='.jpg'  or os.path.splitext(img)[1].lower() =='.jpeg' or os.path.splitext(img)[1] =='.png']
         print(imlist)
     except NotADirectoryError:
         imlist = []
@@ -91,10 +91,10 @@ def main(args):
 
     encoder.load_state_dict(torch.load(args.encoder_path, map_location=device))
 
-    for inx, image in enumerate(imlist):
-
-        print(image)
-        preload_img = cv2.imread(image)
+    for inx, image_filename in enumerate(imlist):
+        print ('---------------------------')
+        print(image_filename)
+        preload_img = cv2.imread(image_filename)
         pixel = preload_img.shape[1] * preload_img.shape[0]
 
         if pixel < 352 * 240:
@@ -110,7 +110,7 @@ def main(args):
 
         inp_dim = int(yolov3.net_info["height"])
 
-        image, orig_img, im_dim = prep_image(image, inp_dim)
+        image, orig_img, im_dim = prep_image(image_filename, inp_dim)
 
         im_dim = torch.FloatTensor(im_dim).repeat(1, 2)
 
@@ -190,10 +190,10 @@ def main(args):
                         sampled_caption[11] = sampled_caption[10]
                         sampled_caption[10] = c11
 
-                        sentence = ' '.join(sampled_caption)
+                        sentence = '/'.join(sampled_caption)
                  
                         # again sampling for testing
-                        #print ('---------------------------')
+                        
                         print (str(i+1) + ': ' + sentence)
                         write(detections[i], orig_img, sampled_caption,sentence, i+1, coco_classes, colors)
                         #list(map(lambda x: write(x, orig_img, captions), detections[i].unsqueeze(0)))
